@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-color: mintcream;
+}
+
+.appWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  background-color: #e5fafc;
+  border: 4px solid #a9ffd4;
+}
+
+.header {
+  margin: none;
+  background-color: #a9ffd4;
+  width: 100%;
+}
+
+.headerPtag {
+  font-size: 28px;
+  font-weight: bolder;
+  color: #ea8a5d;
+  margin-top: 0;
+  margin-bottom: 2px;
+  text-align: center;
+}
+
+.mapbox {
+  display: flex;
+  flex-direction: column-reverse;
+  height: 300px;
+  width: 300px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: white;
+  border: 4px solid #ea8a5d;
+  border-radius: 4px;
+}
+
+.map {
+  width: 100%;
+}
+
+.sliderGuage {
+  border: 2px solid gray;
+}
+
+.favs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.searchText {
+  width: 300px;
+  height: 20px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.boxes {
+  width: 150px;
+  height: 150px;
+  margin-top: 15px;
+  background-color: mintcream;
+}
