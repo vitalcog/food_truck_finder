@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class MapBox extends Component {
 
   componentWillMount() {
-    fetch('https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY')
+    fetch('https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEYs')
     .then(response => response.json)
     .then(console.log(response));
   }
