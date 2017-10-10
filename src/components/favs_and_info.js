@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
+import TopFive from './top_five'
 
 class Favs extends Component {
+
   render() {
     return (
       <div className="favs">
-        <input
-          className="searchText"
-          type="text"
-          placeholder="specific truck or food type"/>
         <div className="boxes">
           favorites
         </div>
-        <div className="boxes">
-          reviews
+        <TopFive />
+        <div className="browserLink">
+          all
         </div>
       </div>
     );
