@@ -12,7 +12,7 @@ class MapBox extends Component {
     return (
       <div className="mapbox">
         <div className="googleMap">
-        <Map/>
+
         </div>
         <div className="sliderGuage">
           dynamic slide for adjusting search radius goes here
