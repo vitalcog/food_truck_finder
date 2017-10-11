@@ -54,7 +54,8 @@ body {
   flex-direction: column;
   text-align: center;
   width: 360px;
-  background-color: mintcream;
+  margin-bottom: 10px;
+  background-color: white;
 }
 
 /*.boxes {
