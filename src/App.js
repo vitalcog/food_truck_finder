@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Header from './components/header';
-import MapBox from './components/map_box';
-import Favs from './components/favs_and_info';
+import FirstDisplay from './components/opening_display';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 class App extends Component {
@@ -9,11 +8,10 @@ class App extends Component {
     return (
       <div className="appWrapper">
         <Header/>
-        <MapBox/>
-        <Favs/>
+        <FirstDisplay/>
         {/* <Switch>
-          <Route path='/lots/:id' component={MapBox} component={Favs} />
-          <Route path='/transactions' component={TransRecord} />
+          <Route path='/WhereTheTruck' component={FirstDisplay} />
+          <Route path='/WhereTheTruck/Favs' component={AllFavs} />
         </Switch> */}
       </div>
     );
