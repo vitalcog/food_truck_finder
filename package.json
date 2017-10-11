@@ -6,7 +6,10 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
+<<<<<<< HEAD
     "react-router-dom": "^4.2.2",
+=======
+>>>>>>> 78bf37fc5eff661dc15d4a347d06d6dd62e06311
     "react-scripts": "1.0.14",
     "redux": "^3.7.2"
   },
