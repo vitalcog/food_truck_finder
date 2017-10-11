@@ -68,3 +68,9 @@ body {
 .browswerLink {
   text-align: center;
 }
+
+.googleMap {
+  height: 300px;
+  width: auto;
+  background-color: gray;
+}
