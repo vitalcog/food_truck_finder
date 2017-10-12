@@ -10,6 +10,8 @@ body {
   flex-direction: column;
   align-items: center;
   width: 400px;
+  height: 100vh;
+  overflow-x: scroll;
   background-color: #e5fafc;
   border: 4px solid #a9ffd4;
 }
@@ -39,6 +41,7 @@ body {
   background-color: white;
   border: 4px solid #ea8a5d;
   border-radius: 4px;
+  align-self: center;
 }
 .sliderGuage {
   border: 2px solid gray;
@@ -47,22 +50,30 @@ body {
 .favs {
   display: flex;
   flex-direction: column;
+  align-items: center;
   text-align: center;
-  width: 360px;
   margin-bottom: 10px;
   background-color: white;
+  overflow: scroll;
 }
 
-/*.boxes {
-  width: 360px;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  text-align: center;
-  background-color: mintcream;
-}*/
+.firstDisplay {
+  display: flex;
+  flex-direction: column;
+}
 
-.browswerLink {
+.link {
   text-align: center;
+  width: 100%;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border-top: 6px solid #e5fafc;
+  padding-top: 6px;
+}
+
+a {
+  text-decoration: none;
+  width: 100%;
 }
 
 .googleMap {
@@ -71,4 +82,11 @@ body {
   background-color: gray;
   position:absolute;
   top:0; bottom:0;
+}
+
+.topFive {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }

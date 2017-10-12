@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 
-class TopFive extends Component {
+class AllFavs extends Component {
 
   render() {
 
     const favs = this.props.favorites.map((fav, index) => {
       return (
-
         <Link key={index} to={`/trucks/${index}`}>
         <p className="link">
           {fav}
@@ -18,7 +17,7 @@ class TopFive extends Component {
     })
 
     return (
-      <div className="topFive">
+      <div className="allFavs">
         {favs}
       </div>
     );
@@ -42,4 +41,4 @@ function dispatch2props(dispatch) {
   }
 }
 
-export default connect (state2props, dispatch2props ) (TopFive);
+export default connect (state2props, dispatch2props ) (AllFavs);
