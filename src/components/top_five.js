@@ -6,7 +6,7 @@ class TopFive extends Component {
 
   render() {
 
-    const favs = this.props.favorites.map((fav, index) => {
+    const favs = this.props.favorites.slice(0,3).map((fav, index) => {
       return (
 
         <Link key={index} to={`/trucks/${index}`}>
@@ -33,6 +33,9 @@ function state2props(state){
       'Yummi Bahn-Mi',
       'Billy-Ray\'s Awesome Traveling BBQ',
       'Generic Food Truck for Testing Purposes',
+      'Tin-tin',
+      'Pop Shop on Wheels',
+      'Another generic name...',
     ],
   }
 }

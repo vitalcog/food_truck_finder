@@ -8,10 +8,19 @@ class AllFavs extends Component {
 
     const favs = this.props.favorites.map((fav, index) => {
       return (
-        <Link key={index} to={`/trucks/${index}`}>
-        <p className="link">
-          {fav}
-        </p>
+        <Link
+          key={index}
+          to={`/trucks/${index}`} >
+          <div className="favBlock">
+
+            <img className="fTruckPic"
+              src= "./img/food_truck_default_img.jpg"/>
+
+            <p className="link">
+              {fav}
+            </p>
+
+          </div>
         </Link>
       )
     })
@@ -32,6 +41,9 @@ function state2props(state){
       'Yummi Bahn-Mi',
       'Billy-Ray\'s Awesome Traveling BBQ',
       'Generic Food Truck for Testing Purposes',
+      'Tin-tin',
+      'Pop Shop on Wheels',
+      'Another generic name...',
     ],
   }
 }
