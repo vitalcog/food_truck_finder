@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import Header from './components/header';
-import MapBox from './components/map_box';
-import Favs from './components/favs_and_info';
+import FirstDisplay from './components/opening_display';
+import AllFavs from './components/all_favs';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
 class App extends Component {
   render() {
     return (
       <div className="appWrapper">
         <Header/>
-        <MapBox/>
-        <Favs/>
+
+        <Switch>
+          <Route exact path='/' component={FirstDisplay} />
+          <Route path='/allFavs' component={AllFavs} />
+        </Switch>
       </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 class MapBox extends Component {
+<<<<<<< HEAD
   componentDidMount() {
     window.mapboxgl.accessToken = 'pk.eyJ1IjoiY2p6ZWxlZG9uIiwiYSI6ImNqOG5jdnlhODE5a3MycW11MWo1eGV2Y2QifQ.WZStz_i8Bt1B4OEZJMg_WA';
     
@@ -11,6 +12,20 @@ class MapBox extends Component {
   }
 
   render() {
+=======
+
+
+
+  // componentWillMount() {
+  //   L.mapbox.map('googleMap', 'mapbox.streets');
+  // }
+
+  render() {
+
+    // L.mapbox.accessToken = 'pk.eyJ1IjoiY2p6ZWxlZG9uIiwiYSI6ImNqOG5jdnlhODE5a3MycW11MWo1eGV2Y2QifQ.WZStz_i8Bt1B4OEZJMg_WA';
+    // let map = L.mapbox.map('map', 'mapbox.streets')
+    //     .setView([40, -74.50], 9);
+>>>>>>> a667de4472fca3153a4194cdfb279296baf65488
     return (
       <div className="mapbox">
         <div id="map"></div>
