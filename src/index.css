@@ -64,8 +64,8 @@ body {
   text-align: center;
 }
 
-.googleMap {
-  height: 300px;
+.map {
+  height: 600px;
   width: auto;
   background-color: gray;
   position:absolute;
