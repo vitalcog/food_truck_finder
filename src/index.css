@@ -34,8 +34,8 @@ body {
 .mapbox {
   display: flex;
   flex-direction: column-reverse;
-  height: 300px;
-  width: 300px;
+  height: 350px;
+  width: 350px;
   margin-top: 10px;
   margin-bottom: 10px;
   background-color: white;
@@ -88,17 +88,18 @@ a {
   width: 100%;
 }
 
-.map {
-  height: 600px;
-  width: auto;
+#map {
+  height: 350px;
+  width: 350px;
+  padding: 0px;
   background-color: gray;
-  position:absolute;
+  position: relative;
   top:0; bottom:0;
 }
 
 .topFive {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: center;
   width: 100%;
   overflow: scroll;
