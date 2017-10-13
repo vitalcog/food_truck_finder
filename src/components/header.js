@@ -4,9 +4,8 @@ class Header extends Component {
   render() {
     return (
       <div className="header">
-        <p className="headerPtag">Where The</p>
-        <p className="headerPtag">TRUCK</p>
-        <p className="headerPtag">Are You</p>
+        <p className="headerPtag">Where The TRUCK Are You</p>
+    
       </div>
     );
   }

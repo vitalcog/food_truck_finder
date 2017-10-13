@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+
 class MapBox extends Component {
 
   componentDidMount() {
@@ -10,6 +12,17 @@ class MapBox extends Component {
       center: [-80.8464, 35.2269], // starting position [lng, lat]
       zoom: 14 // starting zoom
   });
+  // window.mapboxgl.addLayer({
+  //   id: 'points',
+  //   source: 'mapbox-streets',
+  //   "source-layer": 'points',
+  //   type: 'circle',
+  // });
+
+  // window.mapboxgl.addSourc('https://desolate-lowlands-68945.herokuapp.com/foodtrucks/mi-barrios-halal-cart-charlotte', {
+  //   type: geojson,
+  //   data: 'https://desolate-lowlands-68945.herokuapp.com/foodtrucks/mi-barrios-halal-cart-charlotte',
+  // })
   }
 
   render() {
