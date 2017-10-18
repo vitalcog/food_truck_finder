@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import coordinates from '../coordinates.js';
-
 
 class MapBox extends Component {
-
+  // google api key = AIzaSyCniENfrb5Jtl90ZCVLMfsyYGqUxWxLEas
   componentDidMount() {
     window.mapboxgl.accessToken = 'pk.eyJ1IjoiY2p6ZWxlZG9uIiwiYSI6ImNqOG5jdnlhODE5a3MycW11MWo1eGV2Y2QifQ.WZStz_i8Bt1B4OEZJMg_WA';
     //Adds the map
@@ -14,48 +12,20 @@ class MapBox extends Component {
       zoom: 14 // starting zoom
   });
 
-  //Loops over the coordinates to place the locations on the map.
-  const locations = coordinates.map(truck => { return {'type': 'Feature',
-   'properties': {},'geometry': { 'type': 'Point','coordinates': truck,}
-  }});
-
-//   let findLocation = function (position) {
-//   let location = [position.coords.longitude, position.coords.latitude];
-// console.log(location);
-//    // Put the user marker on the map
-//   map.addSource('findLocations', {
-//     type: 'geojson',
-//     data: {
-//       'type': 'FeatureCollection',
-//       'features': [
-//         {'type': 'Feature',
-//         'properties': {},'geometry': { 'type': 'Point','coordinates': location} }
-//       ],
-      
-//     }
-//    });
-
-//    map.addLayer({
-//     id: 'current',
-//     source: 'findLocations',
-//     type: 'circle',
-//   });
-//  }
-  
-  // function noLocation (positionError) {
-  //   console.log(positionError);
-  // }
-
-  //Gets the users position
-  // let watchID = navigator.geolocation.watchPosition(findLocation, noLocation);
-  // let clearID = navigator.geolocation.clearWatch(watchID);
+  //Retreives the json of foodtrucks and returns the coordinates to the map in geojson. 
+let coordinates;
+  fetch('https://desolate-lowlands-68945.herokuapp.com/foodtrucks')
+  .then(response => response.json())
+  .then(response => { coordinates = response.businesses.map(response =>
+   { return {'type': 'Feature',
+   'properties': {},'geometry': { 'type': 'Point','coordinates':  [response.coordinates.longitude, response.coordinates.latitude]}}})});
 
 map.on('load', () => {
   map.addSource('pointsSource', {
     type: 'geojson',
     data: {
       'type': 'FeatureCollection',
-      'features': locations,
+      'features': coordinates,
       
     }
    });
@@ -73,6 +43,10 @@ map.on('load', () => {
     trackUserLocation: true
 }));
 map.addControl(new window.mapboxgl.NavigationControl());
+});
+
+map.on('click', 'points', function (e) {
+  map.flyTo({center: e.features[0].geometry.coordinates});
 });
 
 }
