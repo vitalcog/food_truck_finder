@@ -3,6 +3,14 @@ import React, { Component } from 'react';
 class MapBox extends Component {
   // google api key = AIzaSyCniENfrb5Jtl90ZCVLMfsyYGqUxWxLEas
   componentDidMount() {
+
+    let coordinates;
+    fetch('https://desolate-lowlands-68945.herokuapp.com/foodtrucks')
+    .then(response => response.json())
+    .then(response => { coordinates = response.businesses.map(response =>
+     { return {'type': 'Feature',
+     'properties': {},'geometry': { 'type': 'Point','coordinates':  [response.coordinates.longitude, response.coordinates.latitude]}}})});
+
     window.mapboxgl.accessToken = 'pk.eyJ1IjoiY2p6ZWxlZG9uIiwiYSI6ImNqOG5jdnlhODE5a3MycW11MWo1eGV2Y2QifQ.WZStz_i8Bt1B4OEZJMg_WA';
     //Adds the map
     const map = new window.mapboxgl.Map({
@@ -13,12 +21,7 @@ class MapBox extends Component {
   });
 
   //Retreives the json of foodtrucks and returns the coordinates to the map in geojson. 
-let coordinates;
-  fetch('https://desolate-lowlands-68945.herokuapp.com/foodtrucks')
-  .then(response => response.json())
-  .then(response => { coordinates = response.businesses.map(response =>
-   { return {'type': 'Feature',
-   'properties': {},'geometry': { 'type': 'Point','coordinates':  [response.coordinates.longitude, response.coordinates.latitude]}}})});
+
 
 map.on('load', () => {
   map.addSource('pointsSource', {
