@@ -80,6 +80,10 @@ map.on('load', () => {
         id: 'currentLocation',
         source: 'movingAlong',
         type: 'circle',
+        paint: {
+          "circle-radius": 7,
+          "circle-color": "#007cbf"
+      }
       });
        console.log(this.state.longitude,
         this.state.latitude);
@@ -88,27 +92,6 @@ map.on('load', () => {
   });
 };
 
-
-//   map.addSource('movingAlong', {
-//     type: 'geojson',
-//     data: {
-//       'type': 'FeatureCollection',
-//       'features': [{
-//         type: 'Feature',
-//         geometry: {
-//           type: 'Point',
-//           coordinates: apple,
-//           // coordinates: [-80.8464, 35.2272],
-//         }
-//       }]
-//     }
-// Shows the users current location on the map
-//   map.addControl(new window.mapboxgl.GeolocateControl({
-//     positionOptions: {
-//         enableHighAccuracy: true
-//     },
-//     trackUserLocation: true
-// }));
 map.addControl(new window.mapboxgl.NavigationControl());
 
 
