@@ -16,7 +16,7 @@ class MapBox extends Component {
     .then(response => response.json())
     .then(response => { coordinates = response.businesses.map(response =>
      { return {'type': 'Feature',
-     'properties': { },'geometry': { 'type': 'Point','coordinates':  [response.coordinates.longitude, response.coordinates.latitude]}}})});
+     'properties': {description: response.name },'geometry': { 'type': 'Point','coordinates':  [response.coordinates.longitude, response.coordinates.latitude]}}})});
 
 
     window.mapboxgl.accessToken = 'pk.eyJ1IjoiY2p6ZWxlZG9uIiwiYSI6ImNqOG5jdnlhODE5a3MycW11MWo1eGV2Y2QifQ.WZStz_i8Bt1B4OEZJMg_WA';
@@ -34,8 +34,10 @@ class MapBox extends Component {
 
 
 map.on('load', () => {
+
   map.addSource('pointsSource', {
     type: 'geojson',
+
     data: {
       'type': 'FeatureCollection',
       'features': coordinates,
@@ -45,21 +47,29 @@ map.on('load', () => {
     id: 'points',
     source: 'pointsSource',
     type: 'circle',
+    
   });
+  // map.getSource('movingAlong').setData('FeatureCollection');
 });
 
-  let watchID = navigator.geolocation.watchPosition(function(position) {
+  navigator.geolocation.watchPosition(function(position) {
     bigBrother(position);
   });
  
   const bigBrother= (position)=> {
-    
+     
    this.setState({
      latitude: position.coords.latitude, 
      longitude : position.coords.longitude
     }, () => {
 
+      if (map.getLayer('currentLocation') !== undefined && map.getSource('movingAlong') !== undefined) {
+        map.removeLayer('currentLocation');  
+        map.removeSource('movingAlong'); 
+      } else {
+      
       map.addSource('movingAlong', {
+
         type: 'geojson',
         data: {
           'type': 'FeatureCollection',
@@ -85,10 +95,10 @@ map.on('load', () => {
           "circle-color": "#007cbf"
       }
       });
+            
        console.log(this.state.longitude,
         this.state.latitude);
-    
-
+       }
   });
 };
 
@@ -99,13 +109,19 @@ map.addControl(new window.mapboxgl.NavigationControl());
 map.on('click', 'points', function (e) {
   map.flyTo({center: e.features[0].geometry.coordinates});
 });
-
+map.on('click', 'points', function (e) {
+new window.mapboxgl.Popup()
+.setLngLat(e.features[0].geometry.coordinates)
+.setHTML(e.features[0].properties.description)
+.addTo(map);
+});
 
 
 
 }
   render() {
   console.log(this.state.longitude, this.state.latitude);
+ 
     return (
       <div className="mapbox">
         <div id="map">
