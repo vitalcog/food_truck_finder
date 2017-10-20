@@ -34,6 +34,7 @@ class MapBox extends Component {
 
 
 map.on('load', () => {
+
   map.addSource('pointsSource', {
     type: 'geojson',
     data: {
@@ -46,20 +47,27 @@ map.on('load', () => {
     source: 'pointsSource',
     type: 'circle',
   });
+  // map.getSource('movingAlong').setData('FeatureCollection');
 });
 
-  let watchID = navigator.geolocation.watchPosition(function(position) {
+  navigator.geolocation.watchPosition(function(position) {
     bigBrother(position);
   });
  
   const bigBrother= (position)=> {
-    
+     
    this.setState({
      latitude: position.coords.latitude, 
      longitude : position.coords.longitude
     }, () => {
 
+      if (map.getLayer('currentLocation') !== undefined && map.getSource('movingAlong') !== undefined) {
+        map.removeLayer('currentLocation');  
+        map.removeSource('movingAlong'); 
+      } else {
+      
       map.addSource('movingAlong', {
+
         type: 'geojson',
         data: {
           'type': 'FeatureCollection',
@@ -85,10 +93,10 @@ map.on('load', () => {
           "circle-color": "#007cbf"
       }
       });
+            
        console.log(this.state.longitude,
         this.state.latitude);
-    
-
+       }
   });
 };
 
@@ -106,6 +114,7 @@ map.on('click', 'points', function (e) {
 }
   render() {
   console.log(this.state.longitude, this.state.latitude);
+ 
     return (
       <div className="mapbox">
         <div id="map">
