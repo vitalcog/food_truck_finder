@@ -1,4 +1,7 @@
 body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 0;
   padding: 0;
   font-family: sans-serif;
@@ -9,9 +12,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 400px;
+  width: 95vw;
   height: 100vh;
-  overflow-x: scroll;
+  overflow: scroll;
   background-color: #e5fafc;
   border: 4px solid #a9ffd4;
 }
@@ -34,8 +37,8 @@ body {
 .mapbox {
   display: flex;
   flex-direction: column-reverse;
-  height: 350px;
-  width: 350px;
+  height: 280px;
+  width: 280px;
   margin-top: 10px;
   margin-bottom: 10px;
   background-color: white;
@@ -72,6 +75,17 @@ body {
 
 .fTruckPic {
   height: 100px;
+  width: 100px;
+}
+
+.fTruckPic-details {
+  height: 200px;
+}
+
+.favTruckDetails {
+  height: 100%;
+  width: 100%;
+  background-color: #a9ffd4;
 }
 
 .link {
@@ -89,8 +103,8 @@ a {
 }
 
 #map {
-  height: 350px;
-  width: 350px;
+  height: 280px;
+  width: 280px;
   padding: 0px;
   background-color: gray;
   position: relative;

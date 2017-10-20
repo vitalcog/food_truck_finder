@@ -1,16 +1,16 @@
-import { createStore } from 'redux';
+import { createStore } from 'redux'
 
 function reducer (state, action ) {
 
-};
+  if(action.type === 'YELP_DATA') {
+    console.log(action.payload)
+    return {
+      favorites: action.payload,
+    }
+  }
+  return state;
+}
 
 export const store = createStore(reducer, {
-  favorites: [
-    'Yummi Bahn-Mi',
-    'Billy-Ray\'s Awesome Traveling BBQ',
-    'Generic Food Truck for Testing Purposes',
-    'Tin-tin',
-    'Pop Shop on Wheels',
-    'Another generic name...',
-  ],
-});
+  favorites: {},
+})

@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
-import MapBox from './map_box';
-import Favs from './favs';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import React, { Component } from 'react'
+import MapBox from './map_box'
+import Favs from './favs'
 
 class FirstDisplay extends Component {
   render() {
@@ -10,8 +9,8 @@ class FirstDisplay extends Component {
         <MapBox/>
         <Favs/>
       </div>
-    );
+    )
   }
 }
 
-export default FirstDisplay;
+export default FirstDisplay

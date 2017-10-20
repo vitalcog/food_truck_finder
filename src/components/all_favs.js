@@ -1,29 +1,38 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import {Link} from 'react-router-dom'
+import { receiveData } from '../actions'
 
 class AllFavs extends Component {
 
   render() {
 
-    const favs = this.props.favorites.map((fav, index) => {
-      return (
-        <Link
-          key={index}
-          to={`/trucks/${index}`} >
-          <div className="favBlock">
+    let favs = <div></div>
 
-            <img className="fTruckPic"
-              src= "./img/food_truck_default_img.jpg"/>
+    console.log(this.props.favorites.businesses)
 
-            <p className="link">
-              {fav}
-            </p>
+    if (this.props.favorites.businesses === undefined) {
+      return favs
+    } else {
+      favs = this.props.favorites.businesses.map((fav, index) => {
+        return (
+          <Link
+            key={index}
+            to={`/trucks/:${fav.id}`} >
+            <div className="favBlock">
 
-          </div>
-        </Link>
-      )
-    })
+              <img className="fTruckPic"
+                src= {fav.image_url}/>
+
+              <p className="link">
+                {fav.name}
+              </p>
+
+            </div>
+          </Link>
+        )
+      })
+    }
 
     return (
       <div className="allFavs">
@@ -37,20 +46,12 @@ class AllFavs extends Component {
 
 function state2props(state){
   return {
-    favorites: [
-      'Yummi Bahn-Mi',
-      'Billy-Ray\'s Awesome Traveling BBQ',
-      'Generic Food Truck for Testing Purposes',
-      'Tin-tin',
-      'Pop Shop on Wheels',
-      'Another generic name...',
-    ],
+    favorites: state.favorites,
   }
 }
 
 function dispatch2props(dispatch) {
-  return {
-  }
+  return {}
 }
 
-export default connect (state2props, dispatch2props ) (AllFavs);
+export default connect (state2props, dispatch2props ) (AllFavs)
