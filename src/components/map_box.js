@@ -16,7 +16,7 @@ class MapBox extends Component {
     .then(response => response.json())
     .then(response => { coordinates = response.businesses.map(response =>
      { return {'type': 'Feature',
-     'properties': { },'geometry': { 'type': 'Point','coordinates':  [response.coordinates.longitude, response.coordinates.latitude]}}})});
+     'properties': {description: response.name },'geometry': { 'type': 'Point','coordinates':  [response.coordinates.longitude, response.coordinates.latitude]}}})});
 
 
     window.mapboxgl.accessToken = 'pk.eyJ1IjoiY2p6ZWxlZG9uIiwiYSI6ImNqOG5jdnlhODE5a3MycW11MWo1eGV2Y2QifQ.WZStz_i8Bt1B4OEZJMg_WA';
@@ -37,6 +37,7 @@ map.on('load', () => {
 
   map.addSource('pointsSource', {
     type: 'geojson',
+
     data: {
       'type': 'FeatureCollection',
       'features': coordinates,
@@ -46,6 +47,7 @@ map.on('load', () => {
     id: 'points',
     source: 'pointsSource',
     type: 'circle',
+    
   });
   // map.getSource('movingAlong').setData('FeatureCollection');
 });
@@ -107,7 +109,12 @@ map.addControl(new window.mapboxgl.NavigationControl());
 map.on('click', 'points', function (e) {
   map.flyTo({center: e.features[0].geometry.coordinates});
 });
-
+map.on('click', 'points', function (e) {
+new window.mapboxgl.Popup()
+.setLngLat(e.features[0].geometry.coordinates)
+.setHTML(e.features[0].properties.description)
+.addTo(map);
+});
 
 
 
