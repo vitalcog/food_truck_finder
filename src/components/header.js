@@ -4,7 +4,7 @@ class Header extends Component {
   render() {
     return (
       <div className="header">
-        <p className="headerPtag">Food TRUCK locator</p>
+        <p className="headerPtag">Fork in the Road</p>
     
       </div>
     );
