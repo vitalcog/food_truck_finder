@@ -46,8 +46,8 @@ body {
   border-radius: 4px;
   align-self: center;
 }
-.sliderGuage {
-  border: 2px solid gray;
+.allFavs {
+  width: 100%;
 }
 
 .favs {
@@ -71,6 +71,8 @@ body {
   align-items: center;
   height: 150px;
   width: 100%;
+  border-top: 4px solid #ea8a5d;
+  padding-top: 12px;
 }
 
 .fTruckPic {
@@ -100,6 +102,7 @@ body {
 a {
   text-decoration: none;
   width: 100%;
+  font-size: 22px;
 }
 
 #map {
@@ -118,5 +121,3 @@ a {
   width: 100%;
   overflow: scroll;
 }
-
-

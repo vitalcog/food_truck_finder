@@ -53,4 +53,4 @@ class App extends Component {
     }
   }
 
-  export default connect (state2props, dispatch2props ) (App)
+  export default withRouter(connect (state2props, dispatch2props ) (App))
