@@ -14,7 +14,7 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.props.favorites)
+    // console.log(this.props.favorites)
     return (
       <div className="appWrapper">
         <Header/>

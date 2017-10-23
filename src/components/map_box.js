@@ -8,6 +8,7 @@ class MapBox extends Component {
     this.state = {
       latitude: 0,
       longitude: 0,
+      id: '',
     }
   }
 
@@ -32,17 +33,23 @@ class MapBox extends Component {
       .then(response => {
         return response.businesses.map(response => {
           return {
+            
             'type': 'Feature',
             'properties': {
-              description: response.name
+              id: response.id,
+              description: response.name,
             },
+            
             'geometry': {
               'type': 'Point',
               'coordinates': [response.coordinates.longitude,
                 response.coordinates.latitude
               ]
+              
             }
+            
           }
+          
         });
       })
       .then(features => {
@@ -64,11 +71,13 @@ class MapBox extends Component {
       navigator.geolocation.watchPosition(function (position) {
         bigBrother(position);
       });
-
+      
+console.log(this.state.id);
       const bigBrother = (position) => {
         this.setState({
           latitude: position.coords.latitude,
-          longitude: position.coords.longitude
+          longitude: position.coords.longitude,
+          id: this.state.id,
         }, () => {
 
           if (map.getLayer('currentLocation') !== undefined && map.getSource('movingAlong') !== undefined) {
@@ -102,9 +111,6 @@ class MapBox extends Component {
                 "circle-color": "#007cbf"
               }
             });
-
-            console.log(this.state.longitude,
-              this.state.latitude);
           }
         });
       };
@@ -119,22 +125,33 @@ class MapBox extends Component {
         center: e.features[0].geometry.coordinates
       });
     });
-    map.on('click', 'points', function (e) {
+    map.on('click', 'points', (e) => {
+      this.setState({id: e.features[0].properties.id,
+      latitude: this.state.latitude,
+    longitude: this.state.longitude});
       new window.mapboxgl.Popup()
+      
         .setLngLat(e.features[0].geometry.coordinates)
-        .setHTML(e.features[0].properties.description)
+        .setHTML(e.features[0].properties.description,e.features[0].properties.id)
         .addTo(map);
     });
-
-
-
+   
   }
-  render() {
-    console.log(this.state.longitude, this.state.latitude);
 
+    sendToGoogle () {
+    fetch('https://desolate-lowlands-68945.herokuapp.com/directions/' +this.state.id + '?origin='+this.state.latitude+','+this.state.longitude)
+    .then(response => response.json())
+    .then(response =>response.geocoded_waypoints.map());
+};
+
+  
+  render() {
+    console.log(this.state.longitude, this.state.latitude, this.state.id);
+  console.log(this.state.id);
     return ( 
       <div className="mapbox">
         <div id="map" /> 
+        {<button onClick={() => this.sendToGoogle()}>Get Directions</button>}
       </div >
     );
   };
