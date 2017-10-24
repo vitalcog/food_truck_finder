@@ -8,9 +8,16 @@ function reducer (state, action ) {
       favorites: action.payload,
     }
   }
+
+  if (action.type === 'GO_TO_TRUCK') {
+    return {
+      directions: action.payload,
+    }
+  }
   return state;
 }
 
 export const store = createStore(reducer, {
   favorites: {},
+  directions: [],
 })

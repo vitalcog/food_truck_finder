@@ -1,6 +1,9 @@
 import React, {
   Component
 } from 'react';
+import {connect} from 'react-redux';
+
+import {storeDirections} from '../actions';
 
 class MapBox extends Component {
   constructor(props) {
@@ -9,10 +12,12 @@ class MapBox extends Component {
       latitude: 0,
       longitude: 0,
       id: '',
+      instructions: [],
     }
   }
 
   componentDidMount() {
+   
     // let coordinates;
     window.mapboxgl.accessToken = 'pk.eyJ1IjoiY2p6ZWxlZG9uIiwiYSI6ImNqOG5jdnlhODE5a3MycW11MWo1eGV2Y2QifQ.WZStz_i8Bt1B4OEZJMg_WA';
     //Adds the map
@@ -78,6 +83,7 @@ console.log(this.state.id);
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
           id: this.state.id,
+          instructions: this.state.instructions,
         }, () => {
 
           if (map.getLayer('currentLocation') !== undefined && map.getSource('movingAlong') !== undefined) {
@@ -128,35 +134,50 @@ console.log(this.state.id);
     map.on('click', 'points', (e) => {
       this.setState({id: e.features[0].properties.id,
       latitude: this.state.latitude,
-    longitude: this.state.longitude});
+      longitude: this.state.longitude,
+      instructions: this.state.instructions});
       new window.mapboxgl.Popup()
       
         .setLngLat(e.features[0].geometry.coordinates)
-        .setHTML(e.features[0].properties.description,e.features[0].properties.id)
+        .setHTML(e.features[0].properties.description)
         .addTo(map);
     });
-   
+    
   }
 
+ 
     sendToGoogle () {
+      let directions;
     fetch('https://desolate-lowlands-68945.herokuapp.com/directions/' +this.state.id + '?origin='+this.state.latitude+','+this.state.longitude)
     .then(response => response.json())
-    .then(response =>response.geocoded_waypoints.map());
+    .then(response => { return  directions = response.routes[0].legs[0].steps.map(location => location.html_instructions), this.setState({instructions: directions})})
 };
+
 
   
   render() {
     console.log(this.state.longitude, this.state.latitude, this.state.id);
   console.log(this.state.id);
+  console.log(this.state.instructions);
     return ( 
       <div className="mapbox">
         <div id="map" /> 
         {<button onClick={() => this.sendToGoogle()}>Get Directions</button>}
+        {/* <div>{directions}</div> */}
       </div >
     );
   };
 };
 
+export function mapDispatch2Props (dispatch) {
+  
+  return {
+  mapDirections: function (directions){
+    dispatch(storeDirections(directions))
+    console.log(directions);
+  }
+}
 
+}
 
-export default MapBox;
+export default connect(mapDispatch2Props)(MapBox);

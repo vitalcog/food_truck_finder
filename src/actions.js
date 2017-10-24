@@ -4,3 +4,11 @@ export function receiveData(response) {
     payload: response,
   }
 }
+
+export function storeDirections(directions) {
+  console.log(directions);
+  return {
+    type: 'GO_TO_TRUCK',
+    payload: directions,
+  }
+}
