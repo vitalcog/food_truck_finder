@@ -171,17 +171,6 @@ class MapBox extends Component {
           location.end_location.lat]]).reduce(function (a, b) {
             return a.concat(b);
           });
-        this.setState({
-          instructions: directions,
-          distance: distance,
-          draw_line: line,
-        });
-
-        }),
-          this.props.storeInstructions(this.state.instructions);
-          // if (this.map.getLayer('route') !== undefined) {
-          //   this.map.removeLayer('route');
-          // }  else {
 
         this.map.addLayer({
           "id": "route",
@@ -206,6 +195,21 @@ class MapBox extends Component {
             "line-width": 6
           }
         })
+
+        this.setState({
+          instructions: directions,
+          distance: distance,
+          draw_line: line,
+        }, () => {
+          this.props.storeInstructions(this.state.instructions);
+        });
+
+        });
+          
+          // if (this.map.getLayer('route') !== undefined) {
+          //   this.map.removeLayer('route');
+          // }  else {
+
       // }
   };
 
