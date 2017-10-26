@@ -123,7 +123,7 @@ class MapBox extends Component {
 
     this.map.addControl(new window.mapboxgl.NavigationControl());
 
-    //Centers the point the user selected on the map 
+    //Centers the point the user selected on the map
 
     this.map.on('click', 'points', (e) => {
       // The flyTo needed to be an arrow function to not tie it to the the map.on function.
@@ -132,13 +132,13 @@ class MapBox extends Component {
       });
     });
     this.map.on('click', 'points', (e) => {
-      
+
       this.setState({
         id: e.features[0].properties.id,
         latitude: this.state.latitude,
         longitude: this.state.longitude,
         instructions: this.state.instructions});
-        
+
 
       new window.mapboxgl.Popup()
         .setLngLat(e.features[0].geometry.coordinates)
@@ -150,12 +150,12 @@ class MapBox extends Component {
         }
     })
   }
-  
+
   sendToGoogle() {
     let directions;
     let distance;
     let line;
-    
+
     fetch('https://desolate-lowlands-68945.herokuapp.com/directions/' + this.state.id + '?origin=' + this.state.latitude + ',' + this.state.longitude)
       .then(response => response.json())
       .then(response => {
@@ -166,11 +166,11 @@ class MapBox extends Component {
 
 // This will place the coordiates in the correct format. The reduce function is needed
 // it reduces the array of arrays of arrays from three deep to two deep. The concat wil
-// not work without the reduce function. 
+// not work without the reduce function.
 
         line = steps.map(location => [
-         [location.start_location.lng, 
-          location.start_location.lat], 
+         [location.start_location.lng,
+          location.start_location.lat],
          [location.end_location.lng,
           location.end_location.lat]]).reduce(function (a, b) {
             return a.concat(b);
@@ -179,9 +179,12 @@ class MapBox extends Component {
           instructions: directions,
           distance: distance,
           draw_line: line,
+        });
+
         }),
           this.props.storeInstructions(this.state.instructions);
-        
+
+
         this.map.addLayer({
           "id": "route",
           "type": "line",
@@ -205,7 +208,6 @@ class MapBox extends Component {
             "line-width": 6
           }
         })
-      })
 
   };
 
@@ -227,7 +229,7 @@ class MapBox extends Component {
   export function mapDispatch2Props(dispatch) {
   return {
     storeInstructions: function (instruction) {
-      dispatch(storeDirections(instruction));   
+      dispatch(storeDirections(instruction));
     },
   };
 };
