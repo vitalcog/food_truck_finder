@@ -19,7 +19,6 @@ class MapBox extends Component {
     this.props.storeInstructions(this.state.instructions);
     console.log(this.props.storeInstructions);
     let line;
-    // let coordinates;
     window.mapboxgl.accessToken = 'pk.eyJ1IjoiY2p6ZWxlZG9uIiwiYSI6ImNqOG5jdnlhODE5a3MycW11MWo1eGV2Y2QifQ.WZStz_i8Bt1B4OEZJMg_WA';
 
     //Adds the map
@@ -137,13 +136,12 @@ class MapBox extends Component {
         id: e.features[0].properties.id,
         latitude: this.state.latitude,
         longitude: this.state.longitude,
-        instructions: this.state.instructions});
-
-
+        instructions: this.state.instructions}),
+      
       new window.mapboxgl.Popup()
         .setLngLat(e.features[0].geometry.coordinates)
         .setHTML(e.features[0].properties.description)
-        .addTo(this.map);
+        .addTo(this.map)
         this.sendToGoogle();
     })
   }
@@ -173,14 +171,6 @@ class MapBox extends Component {
             return a.concat(b);
           });
 
-        this.setState({
-          instructions: directions,
-          distance: distance,
-          draw_line: line,
-        });
-
-        this.props.storeInstructions(this.state.instructions);
-
         this.map.addLayer({
           "id": "route",
           "type": "line",
@@ -204,16 +194,30 @@ class MapBox extends Component {
             "line-width": 6
           }
         })
-      })
 
-  }
+        this.setState({
+          instructions: directions,
+          distance: distance,
+          draw_line: line,
+        }, () => {
+          this.props.storeInstructions(this.state.instructions);
+        });
+
+        });
+          
+          // if (this.map.getLayer('route') !== undefined) {
+          //   this.map.removeLayer('route');
+          // }  else {
+
+      // }
+  };
 
   render() {
     console.log(this.state.longitude);
     // console.log(this.state.id);
-    // console.log(this.state.instructions);
-   console.log(this.state.distance);
-    // console.log(this.state.draw_line);
+   //console.log(this.state.instructions);
+  //  console.log(this.state.distance);
+  //  console.log(this.state.draw_line);
 
     return (
       <div className="mapbox">
