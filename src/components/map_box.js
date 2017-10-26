@@ -124,7 +124,7 @@ class MapBox extends Component {
 
     this.map.addControl(new window.mapboxgl.NavigationControl());
 
-    //Centers the point the user selected on the map 
+    //Centers the point the user selected on the map
 
     this.map.on('click', 'points', (e) => {
       // The flyTo needed to be an arrow function to not tie it to the the map.on function.
@@ -153,7 +153,7 @@ class MapBox extends Component {
     let distance;
     let line;
     let coors;
-    
+
     fetch('https://desolate-lowlands-68945.herokuapp.com/directions/' + this.state.id + '?origin=' + this.state.latitude + ',' + this.state.longitude)
       .then(response => response.json())
       .then(response => {
@@ -163,14 +163,14 @@ class MapBox extends Component {
         distance = steps.map(location => location.distance.text);
 
 
-      
+
 // This will place the coordiates in the correct format. The reduce function is needed
 // it reduces the array of arrays of arrays from three deep to two deep. The concat wil
-// not work without the reduce function. 
+// not work without the reduce function.
 
         line = steps.map(location => [
-         [location.start_location.lng, 
-          location.start_location.lat], 
+         [location.start_location.lng,
+          location.start_location.lat],
          [location.end_location.lng,
           location.end_location.lat]]).reduce(function (a, b) {
             return a.concat(b);
@@ -182,7 +182,7 @@ class MapBox extends Component {
         });
 
         console.log(coors);
-      
+
         this.map.addLayer({
           "id": "route",
           "type": "line",
@@ -234,7 +234,7 @@ class MapBox extends Component {
     return (
       <div className="mapbox">
         <div id="map" />
-        {<button onClick={() => this.sendToGoogle()}>Get Directions</button>}
+        {<button className="mapGo" onClick={() => this.sendToGoogle()}>Go</button>}
         {/* <div>{directions}</div> */}
       </div >
     );
