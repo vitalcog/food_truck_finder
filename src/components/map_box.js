@@ -145,6 +145,9 @@ class MapBox extends Component {
         .setHTML(e.features[0].properties.description)
         .addTo(this.map);
         this.sendToGoogle();
+        if (this.map.getLayer('route') !== undefined) {
+          this.map.removeLayer('route');
+        }
     })
   }
   
