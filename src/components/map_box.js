@@ -137,17 +137,13 @@ class MapBox extends Component {
         id: e.features[0].properties.id,
         latitude: this.state.latitude,
         longitude: this.state.longitude,
-        instructions: this.state.instructions});
-
-
+        instructions: this.state.instructions}),
+      
       new window.mapboxgl.Popup()
         .setLngLat(e.features[0].geometry.coordinates)
         .setHTML(e.features[0].properties.description)
-        .addTo(this.map);
+        .addTo(this.map)
         this.sendToGoogle();
-        if (this.map.getLayer('route') !== undefined) {
-          this.map.removeLayer('route');
-        }
     })
   }
 
@@ -183,7 +179,9 @@ class MapBox extends Component {
 
         }),
           this.props.storeInstructions(this.state.instructions);
-
+          // if (this.map.getLayer('route') !== undefined) {
+          //   this.map.removeLayer('route');
+          // }  else {
 
         this.map.addLayer({
           "id": "route",
@@ -208,15 +206,15 @@ class MapBox extends Component {
             "line-width": 6
           }
         })
-
+      // }
   };
 
   render() {
     console.log(this.state.longitude);
     // console.log(this.state.id);
-    // console.log(this.state.instructions);
+   //console.log(this.state.instructions);
    console.log(this.state.distance);
-    // console.log(this.state.draw_line);
+   console.log(this.state.draw_line);
 
     return (
       <div className="mapbox">
