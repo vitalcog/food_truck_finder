@@ -19,7 +19,6 @@ class MapBox extends Component {
     this.props.storeInstructions(this.state.instructions);
     console.log(this.props.storeInstructions);
     let line;
-    // let coordinates;
     window.mapboxgl.accessToken = 'pk.eyJ1IjoiY2p6ZWxlZG9uIiwiYSI6ImNqOG5jdnlhODE5a3MycW11MWo1eGV2Y2QifQ.WZStz_i8Bt1B4OEZJMg_WA';
 
     //Adds the map
@@ -217,8 +216,8 @@ class MapBox extends Component {
     console.log(this.state.longitude);
     // console.log(this.state.id);
    //console.log(this.state.instructions);
-   console.log(this.state.distance);
-   console.log(this.state.draw_line);
+  //  console.log(this.state.distance);
+  //  console.log(this.state.draw_line);
 
     return (
       <div className="mapbox">
