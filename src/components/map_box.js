@@ -223,7 +223,7 @@ class MapBox extends Component {
     return (
       <div className="mapbox">
         <div id="map" />
-      </div >
+      </div>
     );
   };
 };
