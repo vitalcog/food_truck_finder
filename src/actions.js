@@ -5,10 +5,10 @@ export function receiveData(response) {
   }
 }
 
-export function storeDirections(directions) {
-  console.log(directions);
+export function storeDirections(instructions) {
+  console.log(instructions);
   return {
     type: 'GO_TO_TRUCK',
-    payload: directions,
+    payload: instructions,
   }
 }
