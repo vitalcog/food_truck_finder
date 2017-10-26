@@ -132,13 +132,13 @@ class MapBox extends Component {
       });
     });
     this.map.on('click', 'points', (e) => {
-      
+
       this.setState({
         id: e.features[0].properties.id,
         latitude: this.state.latitude,
         longitude: this.state.longitude,
         instructions: this.state.instructions});
-        
+
 
       new window.mapboxgl.Popup()
         .setLngLat(e.features[0].geometry.coordinates)
@@ -147,17 +147,12 @@ class MapBox extends Component {
         this.sendToGoogle();
     })
   }
-  
+
   sendToGoogle() {
     let directions;
     let distance;
     let line;
-<<<<<<< HEAD
-    let coors;
 
-=======
-    
->>>>>>> a0acf5d9e9eeebaca673bf82d6a0efb11aa239ae
     fetch('https://desolate-lowlands-68945.herokuapp.com/directions/' + this.state.id + '?origin=' + this.state.latitude + ',' + this.state.longitude)
       .then(response => response.json())
       .then(response => {
@@ -166,11 +161,6 @@ class MapBox extends Component {
         directions = steps.map(location => location.html_instructions);
         distance = steps.map(location => location.distance.text);
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> a0acf5d9e9eeebaca673bf82d6a0efb11aa239ae
 // This will place the coordiates in the correct format. The reduce function is needed
 // it reduces the array of arrays of arrays from three deep to two deep. The concat wil
 // not work without the reduce function.
@@ -186,16 +176,9 @@ class MapBox extends Component {
           instructions: directions,
           distance: distance,
           draw_line: line,
-<<<<<<< HEAD
-        });
-
-        console.log(coors);
-
-=======
         }),
           this.props.storeInstructions(this.state.instructions);
-        
->>>>>>> a0acf5d9e9eeebaca673bf82d6a0efb11aa239ae
+
         this.map.addLayer({
           "id": "route",
           "type": "line",
@@ -233,12 +216,7 @@ class MapBox extends Component {
     return (
       <div className="mapbox">
         <div id="map" />
-<<<<<<< HEAD
-        {<button className="mapGo" onClick={() => this.sendToGoogle()}>Go</button>}
-        {/* <div>{directions}</div> */}
-=======
->>>>>>> a0acf5d9e9eeebaca673bf82d6a0efb11aa239ae
-      </div >
+      </div>
     );
   };
 };
@@ -246,13 +224,9 @@ class MapBox extends Component {
   export function mapDispatch2Props(dispatch) {
   return {
     storeInstructions: function (instruction) {
-      dispatch(storeDirections(instruction));   
+      dispatch(storeDirections(instruction));
     },
   };
 };
 
-<<<<<<< HEAD
-export default connect(mapDispatch2Props)(MapBox);
-=======
 export default connect(null, mapDispatch2Props)(MapBox);
->>>>>>> a0acf5d9e9eeebaca673bf82d6a0efb11aa239ae
