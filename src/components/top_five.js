@@ -1,21 +1,27 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import {Link} from 'react-router-dom'
 
 class TopFive extends Component {
 
   render() {
 
-    const favs = this.props.favorites.slice(0,3).map((fav, index) => {
-      return (
+    let favs = <div></div>
 
-        <Link key={index} to={`/trucks/${index}`}>
-        <p className="link">
-          {fav}
-        </p>
-        </Link>
-      )
-    })
+    if (this.props.favorites.businesses === undefined) {
+      return favs
+    } else {
+      favs = this.props.favorites.businesses.slice(0,3).map((fav, index) => {
+        return (
+
+          <Link key={fav.id} to={`/trucks/${fav.id}`}>
+          <p className="link">
+            {fav.name}
+          </p>
+          </Link>
+        )
+      })
+    }
 
     return (
       <div className="topFive">
@@ -29,14 +35,7 @@ class TopFive extends Component {
 
 function state2props(state){
   return {
-    favorites: [
-      'Yummi Bahn-Mi',
-      'Billy-Ray\'s Awesome Traveling BBQ',
-      'Generic Food Truck for Testing Purposes',
-      'Tin-tin',
-      'Pop Shop on Wheels',
-      'Another generic name...',
-    ],
+    favorites: state.favorites,
   }
 }
 
@@ -45,4 +44,4 @@ function dispatch2props(dispatch) {
   }
 }
 
-export default connect (state2props, dispatch2props ) (TopFive);
+export default connect (state2props, dispatch2props ) (TopFive)
