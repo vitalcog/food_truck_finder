@@ -125,11 +125,13 @@ class MapBox extends Component {
     this.map.addControl(new window.mapboxgl.NavigationControl());
 
     //Centers the point the user selected on the map 
-    // this.map.on('click', 'points', function (e) {
-    //   this.map.flyTo({
-    //     center: e.features[0].geometry.coordinates
-    //   });
-    // });
+
+    this.map.on('click', 'points', (e) => {
+      // The flyTo needed to be an arrow function to not tie it to the the map.on function.
+      this.map.flyTo({
+        center: e.features[0].geometry.coordinates
+      });
+    });
     this.map.on('click', 'points', (e) => {
       this.setState({
         id: e.features[0].properties.id,
@@ -161,8 +163,10 @@ class MapBox extends Component {
         distance = steps.map(location => location.distance.text);
 
 
-        // location.start_location.lng,
-        // location.start_location.lat
+      
+// This will place the coordiates in the correct format. The reduce function is needed
+// it reduces the array of arrays of arrays from three deep to two deep. The concat wil
+// not work without the reduce function. 
 
         line = steps.map(location => [
          [location.start_location.lng, 
@@ -178,7 +182,7 @@ class MapBox extends Component {
         });
 
         console.log(coors);
-        // console.log(this.state.draw_line);
+      
         this.map.addLayer({
           "id": "route",
           "type": "line",
