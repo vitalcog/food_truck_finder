@@ -1,7 +1,4 @@
 import { createStore } from 'redux'
-import { receiveData } from './actions';
-// import { storeDirections } from './actions';
-
 
 function reducer (state, action ) {
   if(action.type === 'YELP_DATA') {
@@ -13,7 +10,7 @@ function reducer (state, action ) {
   }
 
   if (action.type === 'GO_TO_TRUCK') {
-    console.log(action.payload)
+    // console.log(action.payload)
     return {
       instructions: action.payload,
       favorites: state.favorites,
