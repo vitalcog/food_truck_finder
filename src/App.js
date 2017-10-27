@@ -5,7 +5,6 @@ import AllFavs from './components/all_favs'
 import TruckInfo from './components/fav_info_details'
 import SignIn from './components/sign_in'
 import RegisterOwner from './components/register_owner'
-// import RegisterUser from './components/register_user'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import { receiveData } from './actions'
 import { connect } from 'react-redux'
@@ -50,7 +49,7 @@ class App extends Component {
         fetch('https://desolate-lowlands-68945.herokuapp.com/foodtruck/all')
         .then( res => res.json() )
         .then( res => {
-          console.log(res)
+          // console.log(res)
           return res
         })
         .then( res => {

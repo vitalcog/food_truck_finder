@@ -6,7 +6,7 @@ export function receiveData(response) {
 }
 
 export function storeDirections(instructions) {
-  console.log(instructions);
+  // console.log(instructions);
   return {
     type: 'GO_TO_TRUCK',
     payload: instructions,

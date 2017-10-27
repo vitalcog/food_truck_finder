@@ -17,8 +17,6 @@ class MapBox extends Component {
 
   componentDidMount() {
     this.props.storeInstructions(this.state.instructions);
-    console.log(this.props.storeInstructions);
-    let line;
     window.mapboxgl.accessToken = 'pk.eyJ1IjoiY2p6ZWxlZG9uIiwiYSI6ImNqOG5jdnlhODE5a3MycW11MWo1eGV2Y2QifQ.WZStz_i8Bt1B4OEZJMg_WA';
 
     //Adds the map
@@ -67,7 +65,7 @@ class MapBox extends Component {
             source: 'pointsSource',
             type: 'circle',
           })
-        });
+        })
 
       navigator.geolocation.watchPosition(function (position) {
         bigBrother(position);
@@ -80,13 +78,7 @@ class MapBox extends Component {
           longitude: position.coords.longitude,
           id: this.state.id,
           instructions: this.state.instructions,
-        }, () => {
-
-          if (this.map.getLayer('currentLocation') !== undefined
-              && this.map.getSource('movingAlong') !== undefined) {
-                 this.map.removeLayer('currentLocation');
-                 this.map.removeSource('movingAlong');
-          } else {
+        })
             this.map.addSource('movingAlong', {
               type: 'geojson',
               data: {
@@ -103,7 +95,7 @@ class MapBox extends Component {
                 }]
               }
             });
-
+      
             this.map.addLayer({
               id: 'currentLocation',
               source: 'movingAlong',
@@ -113,8 +105,8 @@ class MapBox extends Component {
                 "circle-color": "#007cbf"
               }
             });
-          }
-        });
+          
+        
       };
     });
 
@@ -134,14 +126,13 @@ class MapBox extends Component {
         id: e.features[0].properties.id,
         latitude: this.state.latitude,
         longitude: this.state.longitude,
-        instructions: this.state.instructions}),
+        instructions: this.state.instructions});
 
       new window.mapboxgl.Popup()
         .setLngLat(e.features[0].geometry.coordinates)
         .setHTML(e.features[0].properties.description)
         .addTo(this.map)
         this.sendToGoogle();
-
     })
   }
 
@@ -168,8 +159,7 @@ class MapBox extends Component {
           location.end_location.lat]]).reduce(function (a, b) {
             return a.concat(b);
           });
-
-          console.log(this.map.getLayer('route'))
+          
             if (this.map.getLayer('route') !== undefined) {
               this.map.removeSource('route');
               this.map.removeLayer('route');
@@ -211,11 +201,11 @@ class MapBox extends Component {
   };
 
   render() {
-    console.log(this.state.longitude);
+    // console.log(this.state.longitude);
     // console.log(this.state.id);
    //console.log(this.state.instructions);
   //  console.log(this.state.distance);
-   console.log(this.state.draw_line);
+  //  console.log(this.state.draw_line);
 
     return (
       <div className="mapbox">
