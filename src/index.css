@@ -168,18 +168,16 @@ input {
   background-color: darkred;
 }
 
-.mapGo {
+.updateLocation {
+  margin-top: 25px;
   background-color: red;
   border-radius: 100%;
   border-width: thick;
   outline: none;
   font-size: 28px;
   color: white;
-  height: 70px;
-  width: 70px;
-  float: left;
-  position: fixed;
-  z-index: 1;
+  height: 150px;
+  width: 150px;
 }
 
 .topFive {

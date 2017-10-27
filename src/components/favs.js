@@ -6,6 +6,18 @@ import { connect } from 'react-redux'
 class Favs extends Component {
 
   render() {
+
+    let directions = <div></div>
+
+    if (this.props.instructions.length === 0) {
+      return directions
+    } else {
+      directions = this.props.instructions.map((info, index) => {
+        console.log(info)
+        return <div></div>
+      })
+    }
+
     if (this.props.instructions.length === 0) {
       return (
         <div className="favs">
@@ -18,7 +30,9 @@ class Favs extends Component {
       )
     } else {
       return (
-        <div className="favs"></div>
+        <div className="favs">
+          {directions}
+        </div>
       )
     }
   }

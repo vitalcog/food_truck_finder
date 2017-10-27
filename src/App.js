@@ -6,6 +6,7 @@ import TruckInfo from './components/fav_info_details'
 import SignIn from './components/sign_in'
 import RegisterOwner from './components/register_owner'
 // import RegisterUser from './components/register_user'
+import OwnerInterface from './components/owner_interface'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import { receiveData } from './actions'
 import { connect } from 'react-redux'
@@ -26,6 +27,7 @@ class App extends Component {
           <Route exact path='/' component={SignIn} />
           <Route path='/register' component={RegisterOwner} />
           <Route exact path='/users' component={FirstDisplay} />
+          <Route exact path='/owner' component={OwnerInterface} />
           <Route path='/allFavs' component={AllFavs} />
           {/* <Route path='/allFavs' render={props => <AllFavs {...props} favorites={this.props.favorites} />} /> */}
           <Route path='/trucks/:id' component={TruckInfo} />
