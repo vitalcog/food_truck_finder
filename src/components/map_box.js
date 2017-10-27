@@ -232,5 +232,6 @@ class MapBox extends Component {
       },
     };
   };
-
+//The first option on connect is mapState2Props, second is MapDispatch2Props
+//if one option is not used it needs to be listed as null
 export default connect(null, mapDispatch2Props)(MapBox);
