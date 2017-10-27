@@ -8,13 +8,13 @@ class TopFive extends Component {
 
     let favs = <div></div>
 
-    if (this.props.favorites.businesses === undefined) {
+    if (this.props.favorites === undefined) {
       return favs
     } else {
-      favs = this.props.favorites.businesses.slice(0,3).map((fav, index) => {
+      favs = this.props.favorites.slice(0,3).map((fav, index) => {
         return (
 
-          <Link key={fav.id} to={`/trucks/${fav.id}`}>
+          <Link key={fav.yelpId} to={`/trucks/${fav.yelpId}`}>
           <p className="link">
             {fav.name}
           </p>

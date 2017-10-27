@@ -5,7 +5,7 @@ import { receiveData } from './actions';
 
 function reducer (state, action ) {
   if(action.type === 'YELP_DATA') {
- 
+
     return {
       favorites: action.payload,
       instructions: state.instructions,
@@ -23,6 +23,6 @@ function reducer (state, action ) {
 }
 
 export const store = createStore(reducer, {
-  favorites: {},
+  favorites: [],
   instructions: [],
 })

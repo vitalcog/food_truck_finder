@@ -47,8 +47,12 @@ class App extends Component {
   function dispatch2props(dispatch) {
     return {
       search: () => {
-        fetch('https://desolate-lowlands-68945.herokuapp.com/foodtrucks')
+        fetch('https://desolate-lowlands-68945.herokuapp.com/foodtruck/all')
         .then( res => res.json() )
+        .then( res => {
+          console.log(res)
+          return res
+        })
         .then( res => {
           dispatch(receiveData(res))
         })

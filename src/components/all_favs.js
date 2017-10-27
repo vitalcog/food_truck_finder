@@ -9,18 +9,18 @@ class AllFavs extends Component {
 
     let favs = <div></div>
 
-    if (this.props.favorites.businesses === undefined) {
+    if (this.props.favorites === undefined) {
       return favs
     } else {
-      favs = this.props.favorites.businesses.map((fav, index) => {
+      favs = this.props.favorites.map((fav, index) => {
         return (
           <Link
             key={fav.id}
-            to={`/trucks/${fav.id}`} >
+            to={`/trucks/${fav.yelpId}`} >
             <div className="favBlock">
 
               <img className="fTruckPic"
-                src= {fav.image_url}/>
+                src= {fav.imageURL}/>
 
               <p className="link">
                 {fav.name}
