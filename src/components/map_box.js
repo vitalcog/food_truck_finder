@@ -32,40 +32,148 @@ class MapBox extends Component {
       fetch('https://desolate-lowlands-68945.herokuapp.com/foodtruck/all')
         .then(response => response.json())
         .then(response => {
-          return response.map(response => {
-            return {
+          // All the points with a startTime
+          const located = response
+            .filter(item => item.location.startTime !== null)
+            .map(item => {
+              //console.log(item);
+              return {  
+                'type': 'Feature',
+                'properties': {
+                  id: item.yelpId,
+                  description: item.name,
+                  startTime: item.location.startTime,
+                },
+  
+                'geometry': {
+                  'type': 'Point',
+                  'coordinates':[item.location.longitude,
+                                 item.location.latitude]
+                },
+              };
+            });
 
+            this.map.addSource('located', {
+              type: 'geojson',
+              data: {
+                'type': 'FeatureCollection',
+                'features': located,
+              }
+            });
+
+            this.map.addLayer({
+              id: 'located',
+              source: 'located',
+              type: 'circle',
+              paint: {
+                "circle-radius": 7,
+                "circle-color": "red"
+              }
+            });
+
+
+            // All the points with a startTime
+          const missing = response
+          .filter(item => item.location.startTime === null)
+          .map(item => {
+            //console.log(item);
+            return {  
               'type': 'Feature',
               'properties': {
-                id: response.yelpId,
-                description: response.name,
+                id: item.yelpId,
+                description: item.name,
+                startTime: item.location.startTime,
+                // Boolean indicates whether the location is up to date
+                updated: item.location.startTime !== undefined,
               },
 
               'geometry': {
                 'type': 'Point',
-                'coordinates':[response.location.longitude,
-                               response.location.latitude]
-              }
-
-            }
-
+                'coordinates':[item.location.longitude,
+                               item.location.latitude]
+              },
+            };
           });
-        })
-        .then(features => {
-          this.map.addSource('pointsSource', {
+
+          console.log(missing);
+
+          this.map.addSource('missing', {
             type: 'geojson',
             data: {
               'type': 'FeatureCollection',
-              'features': features,
+              'features': missing,
             }
-          })
+          });
 
           this.map.addLayer({
-            id: 'points',
-            source: 'pointsSource',
+            id: 'missing',
+            source: 'missing',
             type: 'circle',
-          })
+            paint: {
+              "circle-radius": 7,
+              "circle-color": "black"
+            }
+          });
+
+          // All the points without a startTime
+          // response.map(response => {
+          //   console.log(response.location.startTime);
+          //   return {   
+          //     'type': 'Feature',
+          //     'properties': {
+          //       id: response.yelpId,
+          //       description: response.name,
+          //       startTime: response.location.startTime,
+          //       // Boolean indicates whether the location is up to date
+          //       updated: response.location.startTime !== undefined,
+          //     },
+
+          //     'geometry': {
+          //       'type': 'Point',
+          //       'coordinates':[response.location.longitude,
+          //                      response.location.latitude]
+          //     }, 
+
+          //   }
+          // }
+
+          //  );
+        
         })
+        // .then(features => {
+        //   this.map.addSource('pointsSource', {
+        //     type: 'geojson',
+        //     data: {
+        //       'type': 'FeatureCollection',
+        //       'features': features,
+        //     }
+        //   })
+        //   this.map.addLayer({
+        //     id: 'points',
+        //     source: 'pointsSource',
+        //     type: 'circle',
+        //   })
+            
+        //   this.map.addSource('workingTruck', {
+        //     type: 'geojson',
+        //     data: {
+        //       'type': 'FeatureCollection',
+        //       'features': features,
+        //     }
+        //   })
+          
+       
+        //   this.map.addLayer({
+        //     id: 'truck',
+        //     source: 'workingTruck',
+        //     type: 'circle',
+        //     paint: {
+        //       "circle-radius": 7,
+        //       "circle-color": "red"
+        //     }
+        //   })
+        //  }
+        // })
 
       navigator.geolocation.watchPosition(function (position) {
         bigBrother(position);
@@ -79,7 +187,7 @@ class MapBox extends Component {
           id: this.state.id,
           instructions: this.state.instructions,
         })
-            this.map.addSource('movingAlong', {
+            this.map.addSource('movingAround', {
               type: 'geojson',
               data: {
                 'type': 'FeatureCollection',
@@ -98,7 +206,7 @@ class MapBox extends Component {
       
             this.map.addLayer({
               id: 'currentLocation',
-              source: 'movingAlong',
+              source: 'movingAround',
               type: 'circle',
               paint: {
                 "circle-radius": 7,
@@ -114,26 +222,65 @@ class MapBox extends Component {
 
     //Centers the point the user selected on the map
 
-    this.map.on('click', 'points', (e) => {
+    this.map.on('click', 'located', (e) => {
+      // console.log('hi');
       // The flyTo needed to be an arrow function to not tie it to the the map.on function.
       this.map.flyTo({
         center: e.features[0].geometry.coordinates
       });
-    });
 
-    this.map.on('click', 'points', (e) => {
       this.setState({
         id: e.features[0].properties.id,
         latitude: this.state.latitude,
         longitude: this.state.longitude,
-        instructions: this.state.instructions});
+        instructions: this.state.instructions
+      });
 
       new window.mapboxgl.Popup()
-        .setLngLat(e.features[0].geometry.coordinates)
-        .setHTML(e.features[0].properties.description)
-        .addTo(this.map)
-        this.sendToGoogle();
-    })
+      .setLngLat(e.features[0].geometry.coordinates)
+      .setHTML(e.features[0].properties.description)
+      .addTo(this.map)
+      this.sendToGoogle();
+
+    });
+
+    this.map.on('click', 'missing', (e) => {
+      // console.log('hi');
+      // The flyTo needed to be an arrow function to not tie it to the the map.on function.
+      this.map.flyTo({
+        center: e.features[0].geometry.coordinates
+      });
+
+      this.setState({
+        id: e.features[0].properties.id,
+        latitude: this.state.latitude,
+        longitude: this.state.longitude,
+        instructions: this.state.instructions
+      });
+
+      new window.mapboxgl.Popup()
+      .setLngLat(e.features[0].geometry.coordinates)
+      .setHTML(e.features[0].properties.description)
+      .addTo(this.map)
+      this.sendToGoogle();
+
+    });
+
+//     this.map.on('click', 'missing', (e) => {
+//       // console.log('yeee')
+// console.log(e.features[0].properties.id);
+//       this.setState({
+//         id: e.features[0].properties.id,
+//         latitude: this.state.latitude,
+//         longitude: this.state.longitude,
+//         instructions: this.state.instructions});
+
+//       new window.mapboxgl.Popup()
+//         .setLngLat(e.features[0].geometry.coordinates)
+//         .setHTML(e.features[0].properties.description)
+//         .addTo(this.map)
+//         this.sendToGoogle();
+//     })
   }
 
   sendToGoogle() {
@@ -159,7 +306,7 @@ class MapBox extends Component {
           location.end_location.lat]]).reduce(function (a, b) {
             return a.concat(b);
           });
-          
+
             if (this.map.getLayer('route') !== undefined) {
               this.map.removeSource('route');
               this.map.removeLayer('route');
@@ -201,11 +348,11 @@ class MapBox extends Component {
   };
 
   render() {
-    // console.log(this.state.longitude);
-    // console.log(this.state.id);
-   //console.log(this.state.instructions);
-  //  console.log(this.state.distance);
-  //  console.log(this.state.draw_line);
+    console.log(this.state.longitude);
+    console.log(this.state.id);
+   console.log(this.state.instructions);
+   console.log(this.state.distance);
+   console.log(this.state.draw_line);
 
     return (
       <div className="mapbox">
