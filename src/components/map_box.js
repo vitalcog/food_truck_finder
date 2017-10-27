@@ -31,24 +31,22 @@ class MapBox extends Component {
 
     //Retreives the json of foodtrucks and returns the coordinates to the map in geojson.
     this.map.on('load', () => {
-      fetch('https://desolate-lowlands-68945.herokuapp.com/foodtrucks')
+      fetch('https://desolate-lowlands-68945.herokuapp.com/foodtruck/all')
         .then(response => response.json())
         .then(response => {
-          return response.businesses.map(response => {
+          return response.map(response => {
             return {
 
               'type': 'Feature',
               'properties': {
-                id: response.id,
+                id: response.yelpId,
                 description: response.name,
               },
 
               'geometry': {
                 'type': 'Point',
-                'coordinates': [response.coordinates.longitude,
-                response.coordinates.latitude
-                ]
-
+                'coordinates':[response.location.longitude,
+                               response.location.latitude]
               }
 
             }
@@ -84,11 +82,11 @@ class MapBox extends Component {
           instructions: this.state.instructions,
         }, () => {
 
-          if (this.map.getLayer('currentLocation') !== undefined && this.map.getSource('movingAlong') !== undefined) {
-            this.map.removeLayer('currentLocation');
-            this.map.removeSource('movingAlong');
+          if (this.map.getLayer('currentLocation') !== undefined 
+              && this.map.getSource('movingAlong') !== undefined) {
+                 this.map.removeLayer('currentLocation');
+                 this.map.removeSource('movingAlong');
           } else {
-
             this.map.addSource('movingAlong', {
               type: 'geojson',
               data: {
@@ -130,8 +128,8 @@ class MapBox extends Component {
         center: e.features[0].geometry.coordinates
       });
     });
-    this.map.on('click', 'points', (e) => {
 
+    this.map.on('click', 'points', (e) => {
       this.setState({
         id: e.features[0].properties.id,
         latitude: this.state.latitude,
@@ -155,7 +153,6 @@ class MapBox extends Component {
       .then(response => response.json())
       .then(response => {
         const steps = response.routes[0].legs[0].steps;
-
         directions = steps.map(location => location.html_instructions);
         distance = steps.map(location => location.distance.text);
 
@@ -171,6 +168,10 @@ class MapBox extends Component {
             return a.concat(b);
           });
 
+          if (this.map.getLayer('route') !== undefined) {
+            this.map.removeLayer('route');
+          } else {
+            // this.sendToGoogle(),
         this.map.addLayer({
           "id": "route",
           "type": "line",
@@ -194,6 +195,7 @@ class MapBox extends Component {
             "line-width": 6
           }
         })
+  }
 
         this.setState({
           instructions: directions,
@@ -201,15 +203,8 @@ class MapBox extends Component {
           draw_line: line,
         }, () => {
           this.props.storeInstructions(this.state.instructions);
-        });
-
-        });
-          
-          // if (this.map.getLayer('route') !== undefined) {
-          //   this.map.removeLayer('route');
-          // }  else {
-
-      // }
+           });
+      });
   };
 
   render() {
@@ -228,11 +223,11 @@ class MapBox extends Component {
 };
 
   export function mapDispatch2Props(dispatch) {
-  return {
-    storeInstructions: function (instruction) {
-      dispatch(storeDirections(instruction));
-    },
+    return {
+      storeInstructions: function (instruction) {
+        dispatch(storeDirections(instruction));
+      },
+    };
   };
-};
 
 export default connect(null, mapDispatch2Props)(MapBox);
