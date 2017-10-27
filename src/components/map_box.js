@@ -141,6 +141,7 @@ class MapBox extends Component {
         .setHTML(e.features[0].properties.description)
         .addTo(this.map)
         this.sendToGoogle();
+        
     })
   }
 
@@ -168,34 +169,36 @@ class MapBox extends Component {
             return a.concat(b);
           });
 
-          if (this.map.getLayer('route') !== undefined) {
-            this.map.removeLayer('route');
-          } else {
-            // this.sendToGoogle(),
-        this.map.addLayer({
-          "id": "route",
-          "type": "line",
-          "source": {
-            "type": "geojson",
-            "data": {
-              "type": "Feature",
-              "properties": {},
-              "geometry": {
-                "type": "LineString",
-                "coordinates": line
-              }
+          console.log(this.map.getLayer('route'))
+            if (this.map.getLayer('route') !== undefined) {
+              this.map.removeSource('route');
+              this.map.removeLayer('route');
+              
             }
-          },
-          "layout": {
-            "line-join": "round",
-            "line-cap": "round"
-          },
-          "paint": {
-            "line-color": "blue",
-            "line-width": 6
-          }
-        })
-  }
+
+            this.map.addLayer({
+              "id": "route",
+              "type": "line",
+              "source": {
+                "type": "geojson",
+                "data": {
+                  "type": "Feature",
+                  "properties": {},
+                  "geometry": {
+                    "type": "LineString",
+                    "coordinates": line
+                  }
+                }
+              },
+              "layout": {
+                "line-join": "round",
+                "line-cap": "round"
+              },
+              "paint": {
+                "line-color": "blue",
+                "line-width": 6
+              }
+            })
 
         this.setState({
           instructions: directions,
@@ -212,7 +215,7 @@ class MapBox extends Component {
     // console.log(this.state.id);
    //console.log(this.state.instructions);
   //  console.log(this.state.distance);
-  //  console.log(this.state.draw_line);
+   console.log(this.state.draw_line);
 
     return (
       <div className="mapbox">
