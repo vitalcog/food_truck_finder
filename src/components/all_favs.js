@@ -18,14 +18,8 @@ class AllFavs extends Component {
             key={fav.id}
             to={`/trucks/${fav.yelpId}`} >
             <div className="favBlock">
-
-              <img className="fTruckPic"
-                src= {fav.imageURL}/>
-
-              <p className="link">
-                {fav.name}
-              </p>
-
+              <img className="fTruckPic" src= {fav.imageURL}/>
+              <p className="link">{fav.name}</p>
             </div>
           </Link>
         )

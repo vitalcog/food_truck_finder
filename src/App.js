@@ -17,7 +17,6 @@ class App extends Component {
   }
 
   render() {
-    // console.log(this.props.favorites)
     return (
       <div className="appWrapper">
         <Header/>
@@ -28,9 +27,7 @@ class App extends Component {
           <Route exact path='/users' component={FirstDisplay} />
           <Route exact path='/owner' component={OwnerInterface} />
           <Route path='/allFavs' component={AllFavs} />
-          {/* <Route path='/allFavs' render={props => <AllFavs {...props} favorites={this.props.favorites} />} /> */}
           <Route path='/trucks/:id' component={TruckInfo} />
-          {/* <Route path='/trucks/:id' render={props => <TruckInfo {...props} />} /> */}
         </Switch>
       </div>
     )
@@ -51,7 +48,6 @@ class App extends Component {
         fetch('https://desolate-lowlands-68945.herokuapp.com/foodtruck/all')
         .then( res => res.json() )
         .then( res => {
-          // console.log(res)
           return res
         })
         .then( res => {

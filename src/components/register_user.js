@@ -58,11 +58,6 @@ class RegisterUser extends Component {
   render() {
     return (
       <div className="register">
-        {/* <input onChange={ ev => this.handleChange('name',ev)}
-          type="text" placeholder="user name"/> */}
-
-        {/* <input onChange={ ev => this.handleChange('name',ev)}
-          type="password" placeholder="password"/> */}
         <img className="logoPic" src="../img/road_fork.png" />
 
         <input onChange={ ev => this.handleChange('name',ev)}
