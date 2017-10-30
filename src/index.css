@@ -36,7 +36,7 @@ body {
 }
 /* End All The Primary Stuff Section*/
 
-/*All the Map related stuff section*/
+/*All the Map and directions related stuff section*/
 .mapbox {
   display: flex;
   flex-direction: column-reverse;
@@ -58,7 +58,15 @@ body {
   position: relative;
   top:0; bottom:0;
 }
-/* End all the Map related stuff section*/
+
+.directions {
+  padding: 5px;
+  width: 100%;
+  background-color: darkgreen;
+  color: whitesmoke;
+  font-size: 22px;
+}
+/* End all the Map and directions related stuff section*/
 
 .signIn {
   display: flex;

@@ -5,16 +5,26 @@ import { connect } from 'react-redux'
 
 class Favs extends Component {
 
+  createMarkup(xml) {
+    return {
+      __html: xml
+    }
+  }
+
   render() {
 
     let directions = <div></div>
+    console.log(this.props.instructions)
 
     if (this.props.instructions.length === 0) {
       return directions
     } else {
       directions = this.props.instructions.map((info, index) => {
         console.log(info)
-        return <div></div>
+        return <div
+          key={index}
+          dangerouslySetInnerHTML={this.createMarkup(info)}
+          className="directions"/>
       })
     }
 
