@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 
-class RegisterOwner extends Component {
+class RegisterUser extends Component {
   constructor(props) {
     super(props)
     this.state = {
       name: '',
+      email: '',
+      password: '',
       foodType: '',
       yelpId: '',
       imageURL: '',
@@ -17,6 +19,22 @@ class RegisterOwner extends Component {
     this.setState({
       [state] : ev.target.value,
     })
+  }
+
+  addUser() {
+    fetch('https://desolate-lowlands-68945.herokuapp.com/login', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+            userName: this.state.name,
+            password: this.state.password,
+            email: this.state.email,
+        }),
+      })
   }
 
   addTruck() {
@@ -45,15 +63,16 @@ class RegisterOwner extends Component {
 
         {/* <input onChange={ ev => this.handleChange('name',ev)}
           type="password" placeholder="password"/> */}
+        <img className="logoPic" src="../img/road_fork.png" />
 
         <input onChange={ ev => this.handleChange('name',ev)}
-          type="text" placeholder="truck/company name" value={this.state.name}/>
+          type="text" placeholder="user name" value={this.state.name}/>
 
-        <input onChange={ ev => this.handleChange('foodType',ev)}
-          type="text" placeholder="food type/style" value={this.state.foodType}/>
+        <input onChange={ ev => this.handleChange('email',ev)}
+          type="email" placeholder="email" value={this.state.foodType}/>
 
-        <input onChange={ ev => this.handleChange('url',ev)}
-          type="text" placeholder="website url"/>
+        <input onChange={ ev => this.handleChange('password',ev)}
+          type="password" placeholder="password"/>
 
         <button onClick={() => this.addTruck()} className="submit" type="submit">register</button>
       </div>
@@ -61,4 +80,4 @@ class RegisterOwner extends Component {
   }
 }
 
-export default RegisterOwner
+export default RegisterUser

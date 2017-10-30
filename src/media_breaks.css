@@ -1,0 +1,47 @@
+@media (min-width: 350px) {
+  .mapbox {
+    height: 320px;
+    width: 320px;
+  }
+  .directions {
+    width: 320px;
+  }
+}
+
+@media (min-width: 400px) {
+  .mapbox {
+    height: 385px;
+    width: 385px;
+  }
+  .directions {
+    width: 385px;
+  }
+}
+
+@media (min-width: 560px) {
+  .mapbox {
+    height: 450px;
+    width: 450px;
+  }
+  .directions {
+    width: 450px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .appWrapper {
+    height: 1100px;
+  }
+  .allFavs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: space-around;
+  }
+  .mapbox {
+    height: 800px;
+    width: 800px;
+  }
+  .directions {
+    width: 800px;
+  }
+}

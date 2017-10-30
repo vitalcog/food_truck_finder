@@ -15,7 +15,10 @@ componentDidMount() {
   this.setState({
     yelp_reviews: res,
   }, () => console.log(this.state.yelp_reviews)))
+}
 
+goButton() {
+  this.props.history.push('/users')
 }
 
   render() {
@@ -41,7 +44,9 @@ componentDidMount() {
     return (
       <div className="favTruckDetails">
         <h3>People on Yelp say...</h3>
-        <button className="goThere">GO</button>
+        <button className="goThere"
+          onClick={ ()=> this.goButton()}>GO
+        </button>
         {reviews}
       </div>
     )

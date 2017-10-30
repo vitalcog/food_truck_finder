@@ -13,20 +13,14 @@ class Favs extends Component {
 
   render() {
 
-    let directions = <div></div>
-    console.log(this.props.instructions)
+    let directions = this.props.instructions.map((info, index) => {
+      return <div
+        key={index}
+        dangerouslySetInnerHTML={this.createMarkup(info)}
+        className="directions"/>
+    })
 
-    if (this.props.instructions.length === 0) {
-      return directions
-    } else {
-      directions = this.props.instructions.map((info, index) => {
-        console.log(info)
-        return <div
-          key={index}
-          dangerouslySetInnerHTML={this.createMarkup(info)}
-          className="directions"/>
-      })
-    }
+    console.log(this.props.instructions)
 
     if (this.props.instructions.length === 0) {
       return (

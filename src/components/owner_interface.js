@@ -5,14 +5,17 @@ class OwnerInterface extends Component {
     super(props)
     this.state = {
       Position : [],
+      activated: false,
     }
   }
 
   updateLocation() {
+    this.setState({
+      activated: true,
+    })
     if ("geolocation" in navigator) {
       /* geolocation is available */
       navigator.geolocation.getCurrentPosition( position => {
-        console.log(position.coords.latitude, position.coords.longitude)
         fetch('https://desolate-lowlands-68945.herokuapp.com/user/start-location', {
             method: 'POST',
             headers: {
@@ -33,6 +36,9 @@ class OwnerInterface extends Component {
   }
 
   closeShop() {
+    this.setState({
+      activated: false,
+    })
     fetch('https://desolate-lowlands-68945.herokuapp.com/user/end-location' , {
       method: 'PATCH',
       headers: {
@@ -44,16 +50,35 @@ class OwnerInterface extends Component {
   }
 
   render() {
-    return (
-      <div className="firstDisplay">
-        <button className="updateLocation"
-          onClick={() => this.updateLocation()} >update<br/>location
-        </button>
-        <button className="updateLocation"
-          onClick={() => this.closeShop()} >ghost<br/>customers
-        </button>
-      </div>
-    )
+    if (this.state.activated === false) {
+      return (
+        <div className="firstDisplay">
+          <button className="updateLocation"
+            onClick={() => this.updateLocation()} >update<br/>location
+          </button>
+
+          <img className="logoPic" src="../img/road_fork.png" />
+
+          <button className="updateLocation" className="nonActive"
+            onClick={() => this.closeShop()} >close<br/>shop
+          </button>
+        </div>
+      )
+    } else {
+      return (
+        <div className="firstDisplay">
+          <button className="updateLocation" className="nonActive"
+            onClick={() => this.updateLocation()} >update<br/>location
+          </button>
+
+          <img className="logoPic" src="../img/road_fork.png" />
+
+          <button className="updateLocation"
+            onClick={() => this.closeShop()} >close<br/>shop
+          </button>
+        </div>
+      )
+    }
   }
 }
 

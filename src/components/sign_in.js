@@ -7,12 +7,10 @@ class SignIn extends Component {
     this.state = {
       name: '',
       password: '',
-      email: '',
     }
   }
 
   logIn() {
-    console.log('begining of fetch request yo')
   fetch('https://desolate-lowlands-68945.herokuapp.com/login', {
       method: 'POST',
       headers: {
@@ -25,30 +23,19 @@ class SignIn extends Component {
           password: this.state.password,
       }),
     }).then( res => res.json())
+// This section checks the response body to push user to correct location
     .then(res => {
       if (res.userType === 'owner') {
         this.props.history.push('/owner')
       } else if (res.userType === 'customer') {
         this.props.history.push('/users')
+// This section checks the response body to push user to correct location
       }
     })
   }
 
-  register() {
-    console.log('begining of register new user')
-  fetch('https://desolate-lowlands-68945.herokuapp.com/login', {
-      method: 'POST',
-      headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-      },
-      credentials: 'include',
-      body: JSON.stringify({
-          userName: this.state.name,
-          password: this.state.password,
-          email: this.state.email,
-      }),
-    })
+  newUser() {
+    this.props.history.push('/register')
   }
 
   handleChange(state, ev) {
@@ -60,21 +47,23 @@ class SignIn extends Component {
   render() {
     return (
       <div className="signIn">
+
+        <img className="logoPic" src="../img/road_fork.png" />
+
         <input onChange={ ev => this.handleChange('name', ev)}
           type="text" value={this.state.name} placeholder="user name"/>
-
-        <input onChange={ ev => this.handleChange('email', ev)}
-          type="email" value={this.state.email} placeholder="email"/>
 
         <input onChange={ ev => this.handleChange('password', ev)}
           type="password" value={this.state.password} placeholder="password"/>
 
-        <button onClick={() => this.logIn()}>log in</button>
-        <button onClick={() => this.register()}>register new user</button>
+        <button className="submit"
+          onClick={() => this.logIn()}>log in
+        </button>
 
-        {/* <Link to='/register'>
-          <p className="loginLink">register</p>
-        </Link> */}
+        <button className="submit"
+          onClick={() => this.newUser()}>register new user
+        </button>
+
       </div>
     )
   }
